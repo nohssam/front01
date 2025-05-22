@@ -1,0 +1,18 @@
+.img_item {
+    display: block;
+    margin: 0 auto;
+}
+
+.txt_info {
+    display: block;
+    margin-bottom: 10px;
+    color: #999;
+    text-align: center;
+}
+
+.num_price {
+    font-size: 17px;
+    color: #00bcd4;
+    font-weight: bold;
+    text-align: center;
+}
