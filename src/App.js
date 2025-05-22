@@ -5,7 +5,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Main from './pages/Main';
 import Signup from './pages/Signup';
-import ProducetDetail from './pages/ProducetDetail';
+import ProductDetail from './pages/ProductDetail';
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
               <Route  path="/" element={<Main />}/>
               <Route  path="/login" element={<Login />}/>
               <Route  path="/signup" element={<Signup />}/>
-              <Route  path="/productdetail/:id" element={<ProducetDetail />}/>
+              <Route  path="/productdetail/:id" element={<ProductDetail />}/>
             </Routes>
           </div>
         <Footer />
