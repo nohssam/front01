@@ -38,7 +38,7 @@ export default function Main(){
                     // 반응형 웹 : xs=모바일에서 전체차지, sm(small 화면 6간 = 태블릿에서 1줄에 2개, 
                     // md:데스크에서 1줄에 4개)
                     <Grid item xs={12} sm={6} md={3} key={k.id} style={{textAlign:"center"}}>
-                        <Link to={`/producetdetail/${k.id}`} style={{textDecoration:"none", color:"inherit"}}>
+                        <Link to={`/productdetail/${k.id}`} style={{textDecoration:"none", color:"inherit"}}>
                         <img className="img_item" src={k.image_link} alt={k.name}  />
                         <strong style={{color:"blue"}}>{k.name}</strong>
                         <div className="txt_info">{k.category} &nbsp; {k.product_type}</div>
