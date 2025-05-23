@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { makeupApi } from "../api/http";
 import { Link } from "react-router-dom";
 import '../styles/main.css'
+
 export default function Main(){
     const [list, setList] = useState([]);
     const [loading, setLoading] = useState(true);
