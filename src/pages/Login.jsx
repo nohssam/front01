@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button from "../components/Button";
+import '../styles/login.css'
 
 export default function Login(){
     const [m_id, setM_id] = useState("");
@@ -9,29 +9,22 @@ export default function Login(){
         // Axios로 SpringBoot 서버에 POST로 요청
     }
     return(
-      <>
-        <h1>로그인</h1>
-        <div>
-            <p>
-            <label>아이디 : </label>
+        <div className="login-wrapper">
+            <h2>로그인</h2>
             <input type="text"
-                    value={m_id}
-                    onChange={(e)=>setM_id(e.target.value)}
-                   style={{margin:"5px", padding:"5px"}}
+                value={m_id}
+                onChange={(e)=>setM_id(e.target.value)}
+                placeholder="아이디 입력하세요"
             />
-            </p>
-            <p>
-            <label>패스워드 : </label>
             <input type="password"
-                    value={m_pw}
-                    onChange={(e)=>setM_pw(e.target.value)}
-                   style={{margin:"5px", padding:"5px"}}
+                value={m_pw}
+                onChange={(e)=>setM_pw(e.target.value)}
+                placeholder="패스워드 입력하세요"
             />
-            </p>
-            <Button text="로그인" onClick={handleLogin} />
-            <Button text="회원가입" />
+         
+            <button onClick={handleLogin} disabled={!m_id || !m_pw}>로그인</button>
         </div>
 
-      </>
+      
     )
 }
