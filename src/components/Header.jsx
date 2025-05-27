@@ -1,8 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import '../styles/header.css'
 
-export default function Header(){
-     
+
+export default function Header({isLoggedIn, setIsLoggedIn}){
+    const navigate = useNavigate();
+     // 로그아웃 처리
+     const handleLogout = () => {
+        localStorage.removeItem("token");
+        setIsLoggedIn(false);
+        navigate("/");
+     }
+  
     return(
       <header className="header">
         <div className="header-inner">
@@ -20,8 +28,15 @@ export default function Header(){
             </div>
             {/* 오른쪽 : 로그인, 회원가입, 로그아웃 */}
             <div className="header-right">
-                <Link to="/login">로그인</Link>
-                <Link to="/signup">회원가입</Link>
+                {isLoggedIn ? (
+                    <button onClick={handleLogout}>로그아웃</button>
+                ) : (
+                    <>
+                        <Link to="/login">로그인</Link>
+                        <Link to="/signup">회원가입</Link>
+                    </>
+                )}
+               
             </div>
         </div>
       </header>
