@@ -1,5 +1,6 @@
 import { useState } from "react";
 import '../styles/login.css'
+import { login } from "../api/auth";
 
 export default function Login(){
     const [m_id, setM_id] = useState("");
@@ -7,6 +8,13 @@ export default function Login(){
 
     const handleLogin = async()=>{
         // Axios로 SpringBoot 서버에 POST로 요청
+        try {
+            const response = await login(m_id, m_pw) ;
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+            alert("로그인 실패");
+        }
     }
     return(
         <div className="login-wrapper">
