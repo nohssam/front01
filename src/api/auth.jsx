@@ -6,6 +6,6 @@ import {api} from "./http"
 export const login = (m_id, m_pw) => 
     api.post("/members/login",{m_id, m_pw})
 
-
+// 2. 회원가입
 export const register = (member) =>
     api.post("/members/register", member)

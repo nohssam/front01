@@ -7,6 +7,7 @@ import Main from './pages/Main';
 import Signup from './pages/Signup';
 import ProductDetail from './pages/ProductDetail';
 import { useEffect, useState } from 'react';
+import MyPage from './pages/MyPage';
 
 function App() {
     // 맨처음은 로드인 성공하지 않았음
@@ -28,6 +29,7 @@ function App() {
               <Route  path="/" element={<Main />}/>
               <Route  path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />}/>
               <Route  path="/signup" element={<Signup />}/>
+              <Route  path="/mypage" element={<MyPage />}/>
               <Route  path="/productdetail/:id" element={<ProductDetail />}/>
             </Routes>
           </div>

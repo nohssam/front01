@@ -12,10 +12,13 @@ export default function Login({setIsLoggedIn}){
         // Axios로 SpringBoot 서버에 POST로 요청
         try {
             const response = await login(m_id, m_pw) ;
+            const m_idx = response.data.data.m_idx;
+            const m_name = response.data.data.m_name;
             console.log(response);
             // 로그인 성공화면 home 으로 이동 
             // 단 이동 전에 로그인 성공했다고 기억해야 된다.(localStorage에)
-            localStorage.setItem("token","admin");
+            localStorage.setItem("token",m_idx);
+            localStorage.setItem("name",m_name);
             // App.js 에서 isLoggedIn를 변경하지 위해 
             // main으로 갈때 값을 기억시켜야 한다.
             setIsLoggedIn(true);

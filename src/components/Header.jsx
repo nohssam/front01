@@ -29,7 +29,10 @@ export default function Header({isLoggedIn, setIsLoggedIn}){
             {/* 오른쪽 : 로그인, 회원가입, 로그아웃 */}
             <div className="header-right">
                 {isLoggedIn ? (
-                    <button onClick={handleLogout}>로그아웃</button>
+                    <>
+                        <button onClick={handleLogout}>로그아웃</button>
+                        <Link to="/mypage">마이페이지</Link>
+                    </>
                 ) : (
                     <>
                         <Link to="/login">로그인</Link>

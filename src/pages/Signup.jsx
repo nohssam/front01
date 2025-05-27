@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import '../styles/login.css'
+import { register } from '../api/auth';
+import { useNavigate } from 'react-router-dom';
 export default function Signup(){
+    const navigate = useNavigate();
     const [form, setForm] = useState({
         m_id : '',
         m_pw : '',
@@ -11,18 +14,45 @@ export default function Signup(){
         m_addr2:''
     });
     const [isVerified,setIsVerified] = useState(false);
-    const [canVerity,setCanVerity] = useState(true);
+    const [canVerity,setCanVerity] = useState(false);
     const [code,setCode]=useState("");
 
     const handleChange = (e)=>{
         setForm({...form, [e.target.name] : e.target.value});
     };
 
-    const handleSignup = async ()=>{
-        // Axios로 SpringBoot 서버에 POST로 요청
-    }
     const handleSendCode = ()=>{
+        alert("개발용 인증코드 : 7777777");
+        setCanVerity(true);
+        setIsVerified(false);
 
+    }
+
+    const handleVerify = () =>{
+        // 아래 입력값
+        if(code === "7777777"){
+            alert("인증 성공");
+            // 성공하면 회원가입 버튼 활성화
+            setIsVerified(true);
+        }else{
+            alert("인증 실패");
+        }
+    }
+
+    const handleSignup = async ()=>{
+        try {
+            // Axios로 SpringBoot 서버에 POST로 요청
+            const response = await register(form);
+            // console.log(response);
+            if(response.data.success){
+                alert("회원가입 성공");
+                navigate("/login");
+            }
+            
+        } catch (error) {
+            console.error(error);
+            alert("서버 오류 발생")
+        }
     }
 
     return(
@@ -82,7 +112,7 @@ export default function Signup(){
                         value={code}
                         onChange={(e)=>setCode(e.target.value)}
                     />
-                    <button onClick={handleSendCode} disabled={!form.m_email}>인증확인</button>
+                    <button onClick={handleVerify} disabled={!form.m_email}>인증확인</button>
                 </div>
             )}
 
