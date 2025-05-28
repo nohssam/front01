@@ -9,3 +9,7 @@ export const login = (m_id, m_pw) =>
 // 2. 회원가입
 export const register = (member) =>
     api.post("/members/register", member)
+
+// 3. 마이페이지
+export const myPage =(m_idx) =>
+    api.post("/members/mypage",{m_idx})
