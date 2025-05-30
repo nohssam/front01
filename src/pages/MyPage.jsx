@@ -7,8 +7,10 @@ export default function MyPage(){
     useEffect(()=>{
         const fetchData = async () =>{
             try {
-                const m_idx = localStorage.getItem("token");
-                const response = await myPage(m_idx);
+                //const m_idx = localStorage.getItem("tokens");
+                // const response = await myPage(m_idx);
+
+                const response = await myPage();
                 console.log(response);
 
                 if(response.data.success){

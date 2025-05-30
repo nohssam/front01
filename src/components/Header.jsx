@@ -1,12 +1,15 @@
 import { Link, useNavigate} from "react-router-dom";
 import '../styles/header.css'
+import { useAuth } from "../context/AuthContext";
 
 
-export default function Header({isLoggedIn, setIsLoggedIn}){
+export default function Header(){
+    const {isLoggedIn, setIsLoggedIn} = useAuth();
     const navigate = useNavigate();
      // 로그아웃 처리
      const handleLogout = () => {
-        localStorage.removeItem("token");
+        // tokens로 수정
+        localStorage.removeItem("tokens");
         setIsLoggedIn(false);
         navigate("/");
      }
