@@ -2,11 +2,16 @@ import { useState } from "react";
 import '../styles/login.css'
 import { login } from "../api/auth";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+// import { useAuth } from "../context/AuthContext";
+import useAuthStore from "../store/authStore";
 
 export default function Login(){
     // 로그인 상태 호출하자  AuthContext.jsx에 있다.
-    const {setIsLoggedIn} = useAuth();
+    // const {setIsLoggedIn} = useAuth();
+    
+    // zustand
+    const zu_login = useAuthStore((state)=>state.zu_login);
+
     const [m_id, setM_id] = useState("");
     const [m_pw, setM_pw] = useState("");
     const navigate = useNavigate();
@@ -29,7 +34,10 @@ export default function Login(){
             // localStorage.setItem("name",m_name);
             // App.js 에서 isLoggedIn를 변경하지 위해 
             // main으로 갈때 값을 기억시켜야 한다.
-            setIsLoggedIn(true);
+            
+            // setIsLoggedIn(true);
+
+            zu_login();
             navigate('/');
 
         } catch (error) {

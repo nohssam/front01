@@ -1,16 +1,27 @@
 import { Link, useNavigate} from "react-router-dom";
 import '../styles/header.css'
-import { useAuth } from "../context/AuthContext";
+// import { useAuth } from "../context/AuthContext";
+import useAuthStore from "../store/authStore";
 
 
 export default function Header(){
-    const {isLoggedIn, setIsLoggedIn} = useAuth();
+    // Context
+    // const {isLoggedIn, setIsLoggedIn} = useAuth();
+
+    // zustand
+    // const {zu_isLoggedIn, zu_logout } = useAuthStore((state)=>({
+    //     zu_isLoggedIn : state.zu_isLoggedIn,
+    //     zu_logout : state.zu_logout,
+    // }));
+
+    const zu_isLoggedIn = useAuthStore((state) => state.zu_isLoggedIn);
+    const zu_logout = useAuthStore((state) => state.zu_logout);
+
     const navigate = useNavigate();
-     // 로그아웃 처리
+     
+    // 로그아웃 처리
      const handleLogout = () => {
-        // tokens로 수정
-        localStorage.removeItem("tokens");
-        setIsLoggedIn(false);
+        zu_logout(); // Zustand 
         navigate("/");
      }
   
@@ -31,7 +42,7 @@ export default function Header(){
             </div>
             {/* 오른쪽 : 로그인, 회원가입, 로그아웃 */}
             <div className="header-right">
-                {isLoggedIn ? (
+                {zu_isLoggedIn ? (
                     <>
                         <button onClick={handleLogout}>로그아웃</button>
                         <Link to="/mypage">마이페이지</Link>

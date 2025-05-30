@@ -8,8 +8,18 @@ import Signup from './pages/Signup';
 import ProductDetail from './pages/ProductDetail';
 import MyPage from './pages/MyPage';
 import { AuthProvider } from './context/AuthContext';
+import useAuthStore from './store/authStore';
+import { useEffect } from 'react';
 
 function App() {
+
+  useEffect(()=>{
+    const tokens = localStorage.getItem("tokens");
+    if(tokens){
+        useAuthStore.getState().zu_login();
+    }
+  },[]);
+
   return (
     <AuthProvider>
       <div className='app-container'>
