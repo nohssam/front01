@@ -41,3 +41,32 @@ api.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+api.interceptors.response.use(
+    // 정상적인 응답(200) 은 통과
+    res => res ,
+    // 오류 발생
+    async (error) => {
+        const {config, response } = error;
+        // config._retry 는 재시도 방지용(무한 루프 방지지)
+        console.log("error : " + error);
+
+        if(response?.status === 401 && !config._retry){
+            config._retry = true ; // 한번만 재시도하도록 설정
+            try {
+                const {refreshToken} = JSON.parse(localStorage.getItem("tokens"));
+                console.log("refreshToken : " + refreshToken);
+                const result = await api.post("/members/refresh",{refreshToken});
+                const { accessToken } = result.data.data;
+                localStorage.setItem("tokens", JSON.stringify({ accessToken, refreshToken }));
+                config.headers.Authorization = `Bearer ${accessToken}`;
+                
+                return api(config); // 재요청
+            } catch (error) {
+                localStorage.clear();
+                window.location.href = "/login";
+            }
+        }
+        return Promise.reject(error);
+    } 
+);
