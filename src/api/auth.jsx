@@ -60,12 +60,11 @@ api.interceptors.response.use(
 
                 config.headers.Authorization = `Bearer ${accessToken}`;
                 return api(config);
-
-            } catch (error) {
+            } catch (e) {
                 localStorage.clear();
                 window.location.href = "/login";
-            }
         }
-        return Promise.reject(error);
+    } 
+    return Promise.reject(error);
     }
 );
