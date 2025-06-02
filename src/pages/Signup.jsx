@@ -55,6 +55,10 @@ export default function Signup(){
         }
     }
 
+    const heandleSocialLogin = (provider) => {
+        window.location.href = `http://localhost:8080/oauth2/authorization/${provider}`;
+    }
+
     return(
       <div className="login-wrapper">
             <h2>회원가입</h2>
@@ -117,6 +121,8 @@ export default function Signup(){
             )}
 
             <button onClick={handleSignup} disabled={!isVerified}>회원가입</button>
+            <button onClick={()=> heandleSocialLogin("kakao")}>카카오 로그인</button>
+            <button onClick={()=> heandleSocialLogin("naver")}>네이버 로그인</button>
         </div>
 
     )

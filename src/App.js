@@ -10,6 +10,7 @@ import MyPage from './pages/MyPage';
 import { AuthProvider } from './context/AuthContext';
 import useAuthStore from './store/authStore';
 import { useEffect } from 'react';
+import OAuth2RedirectHandler from './components/OAuth2RedirectHandler';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
                 <Route  path="/signup" element={<Signup />}/>
                 <Route  path="/mypage" element={<MyPage />}/>
                 <Route  path="/productdetail/:id" element={<ProductDetail />}/>
+                <Route  path="/oauth2/redirect" element={<OAuth2RedirectHandler  />}/>
               </Routes>
             </div>
           <Footer />
