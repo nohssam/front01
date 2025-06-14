@@ -1,0 +1,53 @@
+name: React.js CI/CD
+
+on: 
+    push: 
+        branches:
+            - main
+
+jobs: 
+    build-and-deploy: 
+        runs-on: ubuntu-latest
+
+        steps:
+            #1. Github 저장소의 코드를 현재 워크플로우 실행 환경으로 클론
+            # actions/checkout@v3 는 GitHub 공식 액션으로 가장 먼저 실행되어야 한다.(빌드나 하기 위함)
+            - name: Checkout code
+              uses: actions/checkout@v3
+            
+            - name: Set up Node
+              uses: actions/setup-node@v3
+              with:
+                node-version: '20'
+
+            - name: DockerHub Login
+              uses: docker/login-action@v2
+              with:
+                username: ${{secrets.DOCKER_USERNAME}}
+                password: ${{secrets.DOCKER_PASSWORD}}
+
+            - name: Build and Push Docker Image
+              run: |
+                IMAGE_NAME=${{secrets.DOCKER_USERNAME}}/react-app2
+                TAG=${{github.sha}}
+
+                docker build -t $IMAGE_NAME:$TAG .
+                docker push $IMAGE_NAME:$TAG
+            
+            - name: Deploy to AWS EC2
+                #  EC2 서버에 SSH로접속   
+              uses: appleboy/ssh-action@v0.1.8
+              with: 
+                host: ${{secrets.AWS_EC2_HOST}}
+                username: ${{secrets.AWS_EC2_USER}}
+                key: ${{secrets.AWS_EC2_KEY}}
+                script: |
+                    docker pull ${{secrets.DOCKER_USERNAME}}/react-app2:${{github.sha}}
+                    docker stop react-app2 || true
+                    docker rm react-app2 || true
+                    docker run -d -p 80:80 --name react-app2 ${{secrets.DOCKER_USERNAME}}/react-app2:${{github.sha}}
+
+
+
+
+        
