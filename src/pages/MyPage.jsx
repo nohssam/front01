@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { myPage } from "../api/auth";
-import { colors } from "@mui/material";
 
 export default function MyPage(){
     const [member, setMember] = useState();

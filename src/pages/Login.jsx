@@ -45,6 +45,11 @@ export default function Login(){
             alert("로그인 실패");
         }
     }
+
+    
+    const heandleSocialLogin = (provider) => {
+        window.location.href = `http://43.203.39.193:8080/oauth2/authorization/${provider}`;
+    }
     return(
         <div className="login-wrapper">
             <h2>로그인</h2>
@@ -60,6 +65,8 @@ export default function Login(){
             />
          
             <button onClick={handleLogin} disabled={!m_id || !m_pw}>로그인</button>
+            <button onClick={()=> heandleSocialLogin("kakao")}>카카오 로그인</button>
+            <button onClick={()=> heandleSocialLogin("naver")}>네이버 로그인</button>
         </div>
 
       
