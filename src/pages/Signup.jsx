@@ -56,7 +56,7 @@ export default function Signup(){
     }
 
     const heandleSocialLogin = (provider) => {
-        window.location.href = `http://43.201.105.80:8080/oauth2/authorization/${provider}`;
+        window.location.href = `http://43.203.39.193:8080/oauth2/authorization/${provider}`;
     }
 
     return(
