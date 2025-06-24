@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { guestBookDetail, guestBookUpdate } from "../api/auth";
 import { useNavigate, useParams } from "react-router-dom";
-import "../styles/guestbook.css";
+import "../styles/guestbookupdate.css";
 
 export default function GuestBookUpdate() {
     const navigate = useNavigate();

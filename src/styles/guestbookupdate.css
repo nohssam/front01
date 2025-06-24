@@ -1,0 +1,108 @@
+.board-wrapper {
+  width: 80%;
+  margin: 50px auto;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.board-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.title-hr {
+  border: none;
+  height: 2px;
+  background-color: #ccc;
+  margin-bottom: 30px;
+}
+
+.table-wrapper {
+  width: 100%;
+}
+
+.table-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.detail-th {
+  width: 150px;
+  background-color: #f4f4f4;
+  text-align: left;
+  vertical-align: top;
+  padding: 12px;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+}
+
+.detail-td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+textarea.input {
+  resize: vertical;
+  min-height: 200px;
+}
+
+.file-down {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.file-down:hover {
+  color: #0056b3;
+}
+
+.pre-file {
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.btn-container {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.btn-write {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 25px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-write:hover {
+  background-color: #45a049;
+}
+
+.message {
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+  margin-top: 50px;
+}

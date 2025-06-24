@@ -35,8 +35,8 @@ export const guestBookInsert = (formData) =>
   });
 
   // 7. 방명록 삭제
-  export const guestBookDelete = (gb_idx) =>
-    api.post("/guestbook/guestBookDelete", {gb_idx})
+  export const guestBookDelete = (gb_idx,gb_pw) =>
+    api.post("/guestbook/guestBookDelete", {gb_idx, gb_pw})
 
   // 8. 방명록 수정
 export const guestBookUpdate = (formData) =>
