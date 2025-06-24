@@ -1,0 +1,73 @@
+/* 전체 컨테이너 */
+.board-wrapper {
+  width: 70%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* 제목 */
+.board-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.title-hr {
+  border: 1px solid #ddd;
+  margin-bottom: 30px;
+}
+
+/* 테이블 스타일 */
+.table-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.detail-th {
+  background-color: #f3f3f3;
+  text-align: right;
+  padding: 12px;
+  width: 20%;
+  font-weight: bold;
+  border: 1px solid #ccc;
+}
+
+.detail-td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ccc;
+}
+
+/* 첨부파일 버튼 */
+.file-down {
+  background-color: #eee;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.file-down:hover {
+  background-color: #ddd;
+}
+
+/* 버튼 정렬 */
+.btn-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.btn-write {
+  margin: 0 8px;
+  padding: 8px 16px;
+  background-color: #5c6bc0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-write:hover {
+  background-color: #3f51b5;
+}

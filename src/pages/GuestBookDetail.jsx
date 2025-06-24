@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { guestBookDelete, guestBookDetail, myPage } from "../api/auth";
-import "../styles/guestbook.css";
+import "../styles/guestbookdetail.css";
 
 // 날짜 포맷 함수 분리
 const formatDateTime = (datetimeStr) => {

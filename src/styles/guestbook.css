@@ -1,43 +1,47 @@
 .table-wrapper {
-    width: 90%;
-    margin: 0 auto;
-    padding: 20px;
+  width: 80%;
+  margin: 0 auto;
+  padding: 30px;
 }
 
 .button-insert {
-    margin-bottom: 10px;
-    padding: 8px 14px;
-    font-size: 14px;
-    cursor: pointer;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background-color: #5c6bc0;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  float: right;
+  cursor: pointer;
+}
+
+.button-insert:hover {
+  background-color: #3f51b5;
 }
 
 .table-controll {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  margin-top: 10px;
 }
 
-.table-controll th,
+.table-controll th {
+  background-color: #f3f3f3;
+  padding: 12px;
+  border: 1px solid #ccc;
+}
+
 .table-controll td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
-    vertical-align: middle;
-    word-wrap: break-word;
-}
-
-.table-controll th:nth-child(2),
-.table-controll td:nth-child(2) {
-    text-align: left;
-    padding-left: 10px;
+  padding: 12px;
+  border: 1px solid #ccc;
 }
 
 .left-text {
-    text-align: left;
+  text-align: left;
 }
 
 .center-text {
-    text-align: center;
-    padding: 20px;
-    font-weight: bold;
+  text-align: center;
+  padding: 20px;
 }
