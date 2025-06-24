@@ -17,6 +17,89 @@ export const register = (member) =>
 export const myPage =() =>
     api.get("/members/mypage")
 
+
+// 4. 방명록
+export const guestBook = () =>
+    api.get("/guestbook/guestBookList")
+
+// 5. 방명록 상세보기
+export const guestBookDetail = (gb_idx) =>
+    api.post("/guestbook/guestBookDetail", {gb_idx})
+
+// 6. 방명록 작성
+export const geustBookInsert = (formData) =>
+  api.post("/guestbook/guestBookInsert", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  // 7. 방명록 삭제
+  export const guestBookDelete = (gb_idx) =>
+    api.post("/guestbook/guestBookDelete", {gb_idx})
+
+  // 8. 방명록 수정
+export const guestBookUpdate = (formData) =>
+  api.post("/guestbook/guestBookUpdate", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  // 9. bbs
+export const bbsList = (cPage) =>
+  api.get("/bbs/bbsList", {
+    params: { cPage } // 쿼리 파라미터로 보냄 → /bbs/bbsList?cPage=2
+  });
+
+  // 10. bbsDetail
+export const bbsDetail = (b_idx, cPage) =>
+  api.get("/bbs/bbsDetail", {
+    params: { b_idx, cPage }
+  });
+
+// 11. bbsWrite
+export const bbsWrite = (formData) =>
+  api.post("/bbs/bbsWrite", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+ // 12. bbsDelete
+ export const bbsDelete = (b_idx, pwd) =>
+   api.post("/bbs/bbsDelete", { b_idx, pwd }); 
+
+ // 12. bbsUpdate
+ export const bbsUpdate = (formData) =>
+  api.post("/bbs/bbsUpdate", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+ // 13. 비밀번호 확인
+// 비밀번호 확인용
+export const bbsPwdCheck = (b_idx, pwd) =>
+    api.post("/bbs/bbsPwdCheck", { b_idx, pwd });
+
+// 14. 댓글 작성
+export const bbsCommWrite = (comm) =>
+  api.post("/bbs/bbsCommWrite", comm);
+
+// 15. Board 리스트
+export const boardList = ({ offset, limit }) => {
+  return api.get("/board/boardList", {
+    params: { offset, limit }
+  });
+};
+
+
+
+
+
+
+
 // 인터셉터
 // 1.모든 요청을 가로챔
 // - 요청이 발생하면 인터셉터에서 config 객체를 확인한다.
@@ -61,6 +144,10 @@ api.interceptors.response.use(
                 config.headers.Authorization = `Bearer ${accessToken}`;
                 return api(config);
             } catch (e) {
+                // refreshToken이 만료된 경우 처리
+                // console.error("Refresh token expired or invalid", error);
+                // console.log(error);
+                
                 localStorage.clear();
                 window.location.href = "/login";
         }

@@ -18,4 +18,3 @@ export const api = axios.create({
     withCredentials: true  // CORS 허용
 });
 
-// 인터셉터 
