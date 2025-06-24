@@ -1,0 +1,46 @@
+.insert-wrapper {
+    width: 80%;
+    margin: 30px auto;
+    font-family: sans-serif;
+}
+
+.insert-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.insert-table th {
+    text-align: left;
+    width: 120px;
+    padding: 10px;
+    vertical-align: top;
+    background-color: #f9f9f9;
+}
+
+.insert-table td {
+    padding: 10px;
+}
+
+.detail-input {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+textarea.detail-input {
+    height: 150px;
+    resize: none;
+}
+
+.button-row {
+    text-align: center;
+    padding-top: 15px;
+}
+
+.button-row button {
+    margin: 0 10px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+}

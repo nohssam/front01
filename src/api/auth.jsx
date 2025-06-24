@@ -27,7 +27,7 @@ export const guestBookDetail = (gb_idx) =>
     api.post("/guestbook/guestBookDetail", {gb_idx})
 
 // 6. 방명록 작성
-export const geustBookInsert = (formData) =>
+export const guestBookInsert = (formData) =>
   api.post("/guestbook/guestBookInsert", formData, {
     headers: {
       "Content-Type": "multipart/form-data",

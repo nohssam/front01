@@ -1,92 +1,71 @@
 import { useState } from "react";
+import { guestBookInsert } from "../api/auth";
 import { useNavigate } from "react-router-dom";
-import { geustBookInsert } from "../api/auth";
+import '../styles/guestbookinsert.css';
 
 
-export default function GuestBookInsert() {
-  const [subject, setSubject] = useState("");
-  const [content, setContent] = useState("");
-  const [file, setFile] = useState(null);
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // 새로고침 방지
-
-    const formData = new FormData();
-    formData.append("gb_subject", subject);
-    formData.append("gb_content", content);
-    if (file) {
-      formData.append("gb_file", file);
+export default function GuestbookInsert() {
+    const navigate = useNavigate();
+    const [form, setForm] = useState({ gb_content: "", gb_pw: "", gb_subject: "", file: null });
+    const handleFileChange = (e) => {
+        setForm((prev) => ({
+            ...prev,
+            file: e.target.files[0] // ✅ 파일 객체를 저장
+        }));
+    };
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setForm((prev) => ({ ...prev, [name]: value }));
     }
-
-    try {
-      const response = await geustBookInsert(formData);
-
-      const gb_idx = response.data.data.gb_idx; // 등록된 글 번호
-
-      alert("등록 성공!");
-      navigate(`/guestBookDetail/${gb_idx}`); // 등록 후 상세보기로 이동
-
-    } catch (error) {
-      alert("등록 실패: " + error.response?.data?.message || error.message);
-    }
-  };
-
-  return (
-    <form onSubmit={handleSubmit} encType="multipart/form-data">
-      <div className="board-wrapper">
-        <h2 className="board-title">방명록</h2>
-        <hr className="title-hr" />
-                        <div className="table-wrapper">
-        <table>
-          <tbody>
+    const handleEdit = async (action) => {
+        if (action === 1) {
+            try {
+                // 등록
+                const formdata = new FormData();
+                formdata.append("gb_subject", form.gb_subject);
+                formdata.append("gb_content", form.gb_content);
+               formdata.append("gb_file", form.file); 
+                formdata.append("gb_pw", form.gb_pw);
+                const res = await guestBookInsert(formdata);
+                alert("등록 완료");
+                navigate(`/guestBookDetail/${res.data.data}`);
+            } catch (error) {
+                console.log(error.message)
+            }
+        } else if (action === 2) {
+            navigate(`/guestbook`);
+        }
+    };
+    return (
+        <div className="insert-wrapper">
+    <table className="insert-table">
+        <tbody>
             <tr>
-              <th className="detail-th">제목</th>
-              <td className="detail-td">
-                <input
-                  className="input"
-                  type="text"
-                  name="gb_subject"
-                  value={subject}
-                  onChange={(e) => setSubject(e.target.value)}
-                  required
-                />
-              </td>
+                <th>Subject</th>
+                <td><input className="detail-input" name="gb_subject" type="text" value={form.gb_subject} onChange={handleChange} /></td>
             </tr>
             <tr>
-              <th className="detail-th">내용</th>
-              <td className="detail-td">
-                <textarea
-                  className="input"
-                  name="gb_content"
-                  cols="20"
-                  rows="15"
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  required
-                ></textarea>
-              </td>
+                <th>Content</th>
+                <td>
+                    <textarea className="detail-input" name="gb_content" rows="10" onChange={handleChange} value={form.gb_content} />
+                </td>
             </tr>
             <tr>
-              <th className="detail-th">첨부파일</th>
-              <td className="detail-td">
-                <input
-                  className="input"
-                  type="file"
-                  name="gb_file"
-                  onChange={(e) => setFile(e.target.files[0])}
-                />
-              </td>
+                <th>Writing PW</th>
+                <td><input className="detail-input" name="gb_pw" type="password" value={form.gb_pw} onChange={handleChange} /></td>
             </tr>
-          </tbody>
-        </table>
-        </div>
-        <div className="btn-container">
-          <button className="btn-write" type="submit">
-            등록
-          </button>
-        </div>
-      </div>
-    </form>
-  );
+            <tr>
+                <th>Attachment</th>
+                <td><input className="detail-input" type="file" name="file" onChange={handleFileChange} /></td>
+            </tr>
+            <tr>
+                <td colSpan="2" className="button-row">
+                    <button type="button" onClick={() => handleEdit(1)}>등록</button>
+                    <button type="button" onClick={() => handleEdit(2)}>취소</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+    );
 }
