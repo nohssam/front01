@@ -44,7 +44,7 @@ function App() {
               <Route path='/productdetail/:id' element={<ProductDetail />} />
               <Route path='/mypage' element={<MyPage />} />
               <Route path='/oauth2/redirect' element={<OAuth2RedirectHandler/>} />              
-              <Route path='/guestbook' element={<GuestBook/>} />              
+              <Route path='/guestBook' element={<GuestBook/>} />              
               <Route path='/guestBookDetail/:gb_idx' element={<GuestBookDetail/>} />              
               <Route path='/guestBookInsert' element={<GuestBookInsert />} />              
               <Route path='/guestBookUpdate/:gb_idx' element={<GuestBookUpdate/>} />              

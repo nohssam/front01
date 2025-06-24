@@ -73,7 +73,7 @@ export default function Guestbook() {
                             <tr key={k.gb_idx}>
                                 <td>{k.gb_idx}</td>
                                 <td className="left-text">
-                                    <Link to={`/guestbookDetail/${k.gb_idx}`}>{k.gb_subject}</Link>
+                                    <Link to={`/guestBookDetail/${k.gb_idx}`}>{k.gb_subject}</Link>
                                 </td>
                                 <td>{k.gb_name}</td>
                                 <td>{formatDateTime(k.gb_regdate)}</td>

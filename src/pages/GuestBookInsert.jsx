@@ -28,7 +28,7 @@ export default function GuestbookInsert() {
                 formdata.append("gb_pw", form.gb_pw);
                 const res = await guestBookInsert(formdata);
                 alert("등록 완료");
-                navigate(`/guestBookDetail/${res.data.data}`);
+                navigate(`/guestBookDetail/${res.data.data.gb_idx}`);
             } catch (error) {
                 console.log(error.message)
             }
