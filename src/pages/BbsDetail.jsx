@@ -94,12 +94,17 @@ export default function BbsDetail() {
             <tr><th>작성자</th><td>{detail.writer}</td></tr>
             <tr><th>제목</th><td>{detail.subject}</td></tr>
             <tr><th>내용</th><td>{detail.content}</td></tr>
-            <tr><th>첨부파일</th>
+            <tr>
+              <th>첨부파일</th>
               <td>
-                <button disabled={!detail.f_name} onClick={() => {
-                  const url = `http://localhost:8080/api/bbs/fileDownload?f_name=${detail.f_name}`;
-                  window.location.href = url;
-                }}>
+                <button
+                  disabled={!detail.f_name}
+                  onClick={() => {
+                    const encodedName = encodeURIComponent(detail.f_name);
+                    const url = `http://localhost:8080/api/bbs/fileDownload?f_name=${encodedName}`;
+                    window.open(url, "_blank"); // 새 창으로 다운로드
+                  }}
+                >
                   {detail.f_name || "첨부파일 없음"}
                 </button>
               </td>

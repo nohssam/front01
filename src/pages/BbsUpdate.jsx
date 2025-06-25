@@ -8,7 +8,7 @@ export default function BbsUpdate() {
     const [content, setContent] = useState("");
     const [file, setFile] = useState(null);
     const [detail, setDetail] = useState(null);
-    const [comm, setComm] = useState([]);
+   // const [comm, setComm] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const navigate = useNavigate();
@@ -51,7 +51,7 @@ export default function BbsUpdate() {
                     setDetail(data);
                     setSubject(data.subject);   // 초기값 설정
                     setContent(data.content);   // 초기값 설정
-                    setComm(response.data.data.comm);
+                   // setComm(response.data.data.comm);
                 } else {
                     setError(true);
                 }
@@ -72,7 +72,7 @@ export default function BbsUpdate() {
     return (
         <form onSubmit={handleSubmit} encType="multipart/form-data">
             <div className="bbs-wrapper">
-                <h2 className="bbs-title">방명록</h2>
+                <h2 className="bbs-title">게시판(BBS)</h2>
                 <hr className="title-hr" />
                 <div className="table-wrapper">
                     <table>
@@ -131,10 +131,11 @@ export default function BbsUpdate() {
                     </table>
                 </div>
                 <div className="btn-container">
-                    <button className="btn-write" type="submit">등록</button>
+                    <button className="btn-write" type="submit">수정</button>
                     <Link to={`/bbsDetail/${cPage}/${b_idx}`}><button className="btn-write">취소</button></Link>
                 </div>
-                <h2 className="comment-title">댓글</h2>
+                
+                {/* <h2 className="comment-title">댓글</h2>
                 <hr className="title-hr" />
                 <div id="bbs-columns-wrapper">
                     <div id="bbs-columns">
@@ -152,7 +153,7 @@ export default function BbsUpdate() {
                             <div className="no-comment">등록된 댓글이 없습니다.</div>
                         )}
                     </div>
-                </div>
+                </div> */}
             </div>
         </form>
     );

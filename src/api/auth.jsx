@@ -92,6 +92,8 @@ export const bbsCommDelete = (c_idx) => {
   return api.post("/bbs/bbsCommDelete", {c_idx});
 };
 
+
+
 // 인터셉터
 // 1.모든 요청을 가로챔
 // - 요청이 발생하면 인터셉터에서 config 객체를 확인한다.

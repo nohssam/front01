@@ -14,25 +14,30 @@ export default function BbsWrite() {
     const handleFileChange = (e) => setFile(e.target.files[0]);
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+    e.preventDefault();
 
-        const formData = new FormData();
-        formData.append("subject", subject);
-        formData.append("content", content);
-        formData.append("pwd", pwd);
-        if (file) formData.append("file", file);
+    const formData = new FormData();
+    formData.append("subject", subject);
+    formData.append("content", content);
+    formData.append("pwd", pwd);
+    if (file) formData.append("file", file);
 
-        try {
-            const response = await bbsWrite(formData);
-            const b_idx = response.data.data.b_idx;
+    try {
+        const response = await bbsWrite(formData);
+        const result = response.data;
+
+        if (result.success) {
+            const b_idx = result.data.b_idx;
             alert("등록 성공!");
-            navigate(`/bbsDetail/${b_idx}`);
-        } catch (error) {
-            const msg = error.response?.data?.message || error.message;
-            alert("등록 실패: " + msg);
+            navigate(`/bbsDetail/1/${b_idx}`); // cPage는 1로 고정 또는 동적 처리 가능
+        } else {
+            alert("등록 실패: " + result.message);
         }
-    };
-
+    } catch (error) {
+        const msg = error.response?.data?.message || error.message;
+        alert("등록 실패: " + msg);
+    }
+};
     return (
         <form onSubmit={handleSubmit} encType="multipart/form-data">
             <div className="bbs-wrapper">
