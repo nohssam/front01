@@ -1,4 +1,4 @@
-.board-wrapper {
+.bbs-wrapper {
   width: 80%;
   margin: 50px auto;
   padding: 40px;
@@ -8,7 +8,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-.board-title {
+.bbs-title {
   font-size: 28px;
   font-weight: bold;
   margin-bottom: 15px;

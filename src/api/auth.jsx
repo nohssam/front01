@@ -87,12 +87,7 @@ export const bbsPwdCheck = (b_idx, pwd) =>
 export const bbsCommWrite = (comm) =>
   api.post("/bbs/bbsCommWrite", comm);
 
-// 15. Board 리스트
-export const boardList = ({ offset, limit }) => {
-  return api.get("/board/boardList", {
-    params: { offset, limit }
-  });
-};
+
 
 
 

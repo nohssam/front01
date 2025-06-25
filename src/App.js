@@ -17,11 +17,12 @@ import GuestBookDetail from './pages/GuestBookDetail';
 import GuestBookInsert from './pages/GuestBookInsert';
 import GuestBookUpdate from './pages/GuestBookUpdate';
 import Bbs from './pages/Bbs';
-import Board from './pages/Board';
 import BbsDetail from './pages/BbsDetail';
 import BbsWrite from './pages/BbsWrite';
 import BbsUpdate from './pages/BbsUpdate';
 import OAuth2RedirectHandler from './components/OAuth2RedirectHandler';
+import RequireAuth from './components/RequireAuth';
+
 function App() {
 
   useEffect(()=>{
@@ -32,7 +33,7 @@ function App() {
   },[]);
 
   return (
-<AuthProvider>
+        <AuthProvider>
       <div className='app-container'>
         <BrowserRouter>
           <Header />
@@ -43,17 +44,19 @@ function App() {
               <Route path='/signup' element={<Signup />} />
               <Route path='/productdetail/:id' element={<ProductDetail />} />
               <Route path='/mypage' element={<MyPage />} />
-              <Route path='/oauth2/redirect' element={<OAuth2RedirectHandler/>} />              
-              <Route path='/guestBook' element={<GuestBook/>} />              
-              <Route path='/guestBookDetail/:gb_idx' element={<GuestBookDetail/>} />              
-              <Route path='/guestBookInsert' element={<GuestBookInsert />} />              
-              <Route path='/guestBookUpdate/:gb_idx' element={<GuestBookUpdate/>} />              
-              <Route path='/bbs' element={<Navigate to="/bbs/1"/>} />              
-              <Route path='/bbs/:cPage' element={<Bbs/>} />              
-              <Route path='/bbsDetail/:cPage/:b_idx' element={<BbsDetail/>} />              
-              <Route path='/bbsUpdate/:cPage/:b_idx' element={<BbsUpdate/>} />              
-              <Route path='/bbsWrite' element={<BbsWrite/>} />              
-              <Route path='/board' element={<Board/>} />              
+              <Route path='/oauth2/redirect' element={<OAuth2RedirectHandler />} />
+              {/* 방명록 */}
+              <Route path='/guestBook' element={<GuestBook />} />
+              <Route path='/guestBookDetail/:gb_idx' element={<GuestBookDetail />} />
+              <Route path='/guestBookInsert' element={<GuestBookInsert />} />
+              <Route path='/guestBookUpdate/:gb_idx' element={<GuestBookUpdate />} />
+               {/* 게시판1 (BBS) - 로그인 필요 */}
+              <Route path='/bbs' element={<RequireAuth><Navigate to="/bbs/1" /></RequireAuth>} />
+              <Route path='/bbs/:cPage' element={<RequireAuth><Bbs /></RequireAuth>} />
+              <Route path='/bbsDetail/:cPage/:b_idx' element={<RequireAuth><BbsDetail /></RequireAuth>} />
+              <Route path='/bbsUpdate/:cPage/:b_idx' element={<RequireAuth><BbsUpdate /></RequireAuth>} />
+              <Route path='/bbsWrite' element={<RequireAuth><BbsWrite /></RequireAuth>} />
+
             </Routes>
           </div>
           <Footer />

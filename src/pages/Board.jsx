@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { boardList } from "../api/auth";
+import { bbsList } from "../api/auth";
 
-export default function Board() {
-    const [board, setBoard] = useState([]);
+export default function bbs() {
+    const [bbs, setbbs] = useState([]);
     const [offset, setOffset] = useState(0);
     const limit = 10;
     const [hasMore, setHasMore] = useState(true);
@@ -11,10 +11,10 @@ export default function Board() {
     const [error, setError] = useState(false);
 
     // offset을 인자로 받는 fetch 함수
-    const fetchBoardList = useCallback(async (offsetParam) => {
+    const fetchbbsList = useCallback(async (offsetParam) => {
         setLoading(true);
         try {
-            const res = await boardList({ offset: offsetParam, limit });
+            const res = await bbsList({ offset: offsetParam, limit });
             console.log("게시글 목록 불러오기 성공", res.data);
             const newList = res.data.data;
 
@@ -22,7 +22,7 @@ export default function Board() {
                 setHasMore(false);
             }
 
-            setBoard((prev) => [...prev, ...newList]);
+            setbbs((prev) => [...prev, ...newList]);
         } catch (err) {
             console.error("게시글 목록 불러오기 실패", err);
             setError(true);
@@ -33,23 +33,23 @@ export default function Board() {
 
     // 최초 한 번만 실행
     useEffect(() => {
-        fetchBoardList(0);
-    }, [fetchBoardList]);
+        fetchbbsList(0);
+    }, [fetchbbsList]);
 
     // 더보기 버튼 핸들러
     const handleLoadMore = () => {
-        fetchBoardList(offset);
+        fetchbbsList(offset);
         setOffset((prev) => prev + limit);
     };
 
-    if (loading && board.length === 0) return <div className="message">Loading...</div>;
+    if (loading && bbs.length === 0) return <div className="message">Loading...</div>;
     if (error) return <div className="message">ERROR</div>;
 
     return (
         <>
-            <img src="https://i.pinimg.com/736x/ea/84/11/ea8411f8fb915dcd3eea5378f34decfd.jpg" className="board-img" alt="img" />
-            <div className="board-wrapper">
-                <h2 className="board-title">게시판</h2>
+            <img src="https://i.pinimg.com/736x/ea/84/11/ea8411f8fb915dcd3eea5378f34decfd.jpg" className="bbs-img" alt="img" />
+            <div className="bbs-wrapper">
+                <h2 className="bbs-title">게시판</h2>
                 <div className="table-wrapper">
                     <table>
                         <thead>
@@ -62,9 +62,9 @@ export default function Board() {
                             </tr>
                         </thead>
                         <tbody>
-                            {board.map((k, i) => (
+                            {bbs.map((k, i) => (
                                 <tr key={i}>
-                                    <td>{board.length - i}</td>
+                                    <td>{bbs.length - i}</td>
                                     <td>{k.writer}</td>
                                     <td>
                                         {k.active === "0" ? (

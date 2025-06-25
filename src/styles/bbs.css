@@ -1,0 +1,119 @@
+
+.bbs-wrapper {
+  width: 90%;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 30px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.bbs-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.bbs-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.bbs-table th,
+.bbs-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+  font-size: 15px;
+}
+
+.bbs-table th {
+  background-color: #f2f2f2;
+}
+
+.bbs-table td a {
+  text-decoration: none;
+  color: #333;
+}
+
+.bbs-table td a:hover {
+  text-decoration: underline;
+}
+
+.bbs-deleted {
+  color: #999;
+  font-style: italic;
+}
+
+.bbs-paging {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 6px;
+}
+
+.bbs-paging button {
+  padding: 6px 12px;
+  border: none;
+  background-color: #eee;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.bbs-now {
+  font-weight: bold;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+}
+
+.bbs-disable {
+  background-color: #ccc;
+  color: #fff;
+  cursor: not-allowed;
+}
+
+.bbs-btn-container {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.bbs-btn-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #198754;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.bbs-btn-container button:hover {
+  background-color: #145c39;
+}
+
+.bbs-message {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 60px;
+  color: #777;
+}
+
+.bbs-action-btn {
+  margin: 2px;
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 4px;
+  background-color: #ffc107;
+  color: #000;
+  border: none;
+  cursor: pointer;
+}
+
+.bbs-action-btn:hover {
+  background-color: #e0a800;
+}

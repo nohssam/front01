@@ -1,5 +1,5 @@
 /* 상세보기 기본 스타일 */
-.board-wrapper {
+.bbs-wrapper {
   max-width: 900px;
   margin: 40px auto;
   background-color: #fff;
@@ -8,7 +8,7 @@
   border-radius: 10px;
 }
 
-.board-title {
+.bbs-title {
   text-align: center;
   font-size: 24px;
   margin-bottom: 20px;

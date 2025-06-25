@@ -71,8 +71,8 @@ export default function BbsUpdate() {
 
     return (
         <form onSubmit={handleSubmit} encType="multipart/form-data">
-            <div className="board-wrapper">
-                <h2 className="board-title">방명록</h2>
+            <div className="bbs-wrapper">
+                <h2 className="bbs-title">방명록</h2>
                 <hr className="title-hr" />
                 <div className="table-wrapper">
                     <table>
