@@ -117,3 +117,81 @@
 .bbs-action-btn:hover {
   background-color: #e0a800;
 }
+
+.bbs-comment-box {
+  border: 1px solid #ddd;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 6px;
+  background-color: #fafafa;
+}
+
+.bbs-comment-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #555;
+}
+
+.bbs-comment-body {
+  font-size: 15px;
+  white-space: pre-wrap;
+}
+
+.bbs-action-wrap {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.bbs-comment-editor {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.bbs-comment-writer-label {
+  font-weight: bold;
+  min-width: 80px;
+  line-height: 1.5;
+}
+
+.bbs-comment-textarea {
+  flex: 1;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  min-height: 60px;
+}
+
+.bbs-comment-actions {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}
+
+/* 모달 입력 스타일 공통 */
+.bbs-modal-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+}
+
+.bbs-modal-inner button {
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 6px 14px;
+  font-size: 14px;
+  border: none;
+  background-color: #ffc107;
+  border-radius: 4px;
+  cursor: pointer;
+}

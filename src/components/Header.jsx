@@ -49,7 +49,7 @@ export default function Header(){
             <div className="header-center">
                 <Link to="/guestBook" >방명록</Link>
                 <Link to="/bbs" >게시판1(bbs)</Link>
-                <Link to="/bbs" >게시판2(bbs)</Link>
+                <Link to="/board" >게시판2(board)</Link>
                 <Link to="/support" >고객센터</Link>
             </div>
             {/* 오른쪽 : 로그인, 회원가입, 로그아웃 */}

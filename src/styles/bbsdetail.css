@@ -1,0 +1,50 @@
+.bbs-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.bbs-modal-inner {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.bbs-modal-inner h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.bbs-modal-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-bottom: 16px;
+}
+
+.bbs-modal-inner button {
+  padding: 6px 16px;
+  margin: 4px;
+  background-color: #ffc107;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.bbs-modal-inner button:hover {
+  background-color: #e0a800;
+}

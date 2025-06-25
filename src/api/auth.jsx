@@ -87,13 +87,10 @@ export const bbsPwdCheck = (b_idx, pwd) =>
 export const bbsCommWrite = (comm) =>
   api.post("/bbs/bbsCommWrite", comm);
 
-
-
-
-
-
-
-
+// 15. 댓글 삭제
+export const bbsCommDelete = (c_idx) => {
+  return api.post("/bbs/bbsCommDelete", {c_idx});
+};
 
 // 인터셉터
 // 1.모든 요청을 가로챔
@@ -101,24 +98,48 @@ export const bbsCommWrite = (comm) =>
 // 2.특수요청 제외 
 // - login, register
 // 3. 제외한 나머지는 헤더에 JWT 토큰이 자동으로 추가되게 하자 
+
+// api.interceptors.request.use(
+//     (config) => {
+//         const excludePaths = ["/members/login","/members/register"]; // 제외할 목록
+//         if(! excludePaths.includes(config.url)){
+//             const tokens = localStorage.getItem("tokens");
+//             if(tokens){
+//                 const parsed = JSON.parse(tokens); // 객체로 파싱
+//                 if(parsed.accessToken){
+//                     config.headers.Authorization = `Bearer ${parsed.accessToken}` // 문자열로 출력됨
+//                 }
+//             }
+//         }
+//         return config;
+//     },
+//     (error) =>{
+//         return Promise.reject(error);
+//     }
+// );
+
 api.interceptors.request.use(
-    (config) => {
-        const excludePaths = ["/members/login","/members/register"]; // 제외할 목록
-        if(! excludePaths.includes(config.url)){
-            const tokens = localStorage.getItem("tokens");
-            if(tokens){
-                const parsed = JSON.parse(tokens); // 객체로 파싱
-                if(parsed.accessToken){
-                    config.headers.Authorization = `Bearer ${parsed.accessToken}` // 문자열로 출력됨
-                }
-            }
+  (config) => {
+    const excludePaths = ["/members/login", "/members/register"];
+    const excludeMatch = excludePaths.some((path) => config.url.includes(path));
+
+    if (!excludeMatch) {
+      const tokens = localStorage.getItem("tokens");
+      if (tokens) {
+        const parsed = JSON.parse(tokens);
+        if (parsed.accessToken) {
+          config.headers.Authorization = `Bearer ${parsed.accessToken}`;
         }
-        return config;
-    },
-    (error) =>{
-        return Promise.reject(error);
+      }
     }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
 );
+
+
 
 api.interceptors.response.use(
     // 정상적인 응답은 통과
