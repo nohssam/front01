@@ -1,0 +1,38 @@
+.mypage-container {
+    width: 40%;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+
+.mypage-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.mypage-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.mypage-table th,
+.mypage-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.mypage-table th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+}
+
+.mypage-error {
+    color: red;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 30px;
+}
