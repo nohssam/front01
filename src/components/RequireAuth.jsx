@@ -1,13 +1,31 @@
-import { Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useAuthStore from "../store/authStore";
 
 export default function RequireAuth({ children }) {
-    const isLoggedIn = useAuthStore((state) => state.zu_isLoggedIn);
+  const navigate = useNavigate();
+  const { isLogin } = useAuthStore();
+  const [loading, setLoading] = useState(true);
 
-    if (!isLoggedIn) {
-        alert("로그인이 필요합니다.");
-        return <Navigate to="/login" replace />;
+  useEffect(() => {
+    const tokens = localStorage.getItem("tokens");
+
+    if (tokens) {
+      useAuthStore.getState().zu_login(); // 상태 복원
     }
 
-    return children;
+    // 상태 복원 후 최소 지연을 주고 로딩 해제
+    setTimeout(() => {
+      setLoading(false);
+    }, 100);
+  }, []);
+
+  if (loading) return <div>인증 확인 중...</div>;
+
+  if (!isLogin) {
+    navigate("/login");
+    return null;
+  }
+
+  return children;
 }
