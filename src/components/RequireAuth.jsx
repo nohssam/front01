@@ -4,7 +4,7 @@ import useAuthStore from "../store/authStore";
 
 export default function RequireAuth({ children }) {
   const navigate = useNavigate();
-  const { isLogin } = useAuthStore();
+  const { zu_isLoggedIn } = useAuthStore();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function RequireAuth({ children }) {
 
   if (loading) return <div>인증 확인 중...</div>;
 
-  if (!isLogin) {
+  if (!zu_isLoggedIn) {
     navigate("/login");
     return null;
   }
