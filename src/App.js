@@ -50,7 +50,7 @@ function App() {
   }, []);
 
   if (loading) {
-    return <div>로그인 상태 확인 중입니다...</div>;  // 무조건 넣어야 함
+    return <div><b>로그인 상태 확인 중입니다...</b></div>;  // 무조건 넣어야 함
   }
   return (
         <AuthProvider>
