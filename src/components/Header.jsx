@@ -2,6 +2,7 @@ import { Link, useNavigate} from "react-router-dom";
 import '../styles/header.css'
 // import { useAuth } from "../context/AuthContext";
 import useAuthStore from "../store/authStore";
+import { api } from "../api/http";
 
 
 export default function Header(){
@@ -19,22 +20,24 @@ export default function Header(){
 
     const navigate = useNavigate();
      
-    // 로그아웃 처리
-     const handleLogout = () => {
-        zu_logout(); // Zustand 
-
-        // 로컬스토리지 제거
-        localStorage.removeItem("snsProvider");
-        //localStorage.removeItem("tokens");
-
-        // 쿠키 삭제
-        document.cookie = "snsProvider=; path=/; max-age=0";
-        document.cookie = "authToken=; path=/; max-age=0";
-
-        // 초기화
-        useAuthStore.getState().zu_logout();
-        navigate("/");
-     }
+    const handleLogout = async () => {
+        try {
+            const res = await api.post("/members/logout");
+            console.log("로그아웃 응답:", res.data);
+            if (res.data && !res.data.success) {
+                alert("로그아웃 실패: " + (res.data.message || "알 수 없는 이유"));
+            }
+            } catch (error) {
+            console.error("로그아웃 에러", error);
+            alert("로그아웃 중 오류가 발생했습니다.");
+            } finally {
+            // ✅ 로그아웃 시 상태 초기화 (불필요한 snsProvider는 제거 가능)
+            localStorage.removeItem("accessToken");
+            // localStorage.removeItem("snsProvider");  // SNS 로그인 시 꼭 필요하면 주석 풀어도 됨
+            zu_logout();
+            navigate("/login");
+            }
+        };
   
     return(
       <header className="header">

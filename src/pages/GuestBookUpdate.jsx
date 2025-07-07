@@ -16,7 +16,7 @@ export default function GuestBookUpdate() {
 
     const handleFileDown = () => {
         if (!detail.gb_f_name) return;
-        const fileUrl = `http://localhost:8080/api/guestbook/fileDownload?gb_f_name=${detail.gb_f_name}`;
+        const fileUrl = `http://43.203.39.193:8080/api/guestbook/fileDownload?gb_f_name=${detail.gb_f_name}`;
         window.location.href = fileUrl;
     };
 

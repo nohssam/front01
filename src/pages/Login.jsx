@@ -17,39 +17,26 @@ export default function Login(){
     const navigate = useNavigate();
 
     // Axios로 SpringBoot 서버에 POST로 요청
-    const handleLogin = async()=>{
+    const handleLogin = async () => {
         try {
-            const response = await login(m_id, m_pw) ;
-            // const m_idx = response.data.data.m_idx;
-            // const m_name = response.data.data.m_name;
-            console.log(response);
-            const {accessToken, refreshToken} = response.data.data ;
+            const response = await login(m_id, m_pw);
+            const { accessToken } = response.data.data;
 
-            // localStorage 저장하기, 토큰만 저장
-            localStorage.setItem("tokens", JSON.stringify({accessToken, refreshToken }));
-            
-            // 로그인 성공화면 home 으로 이동 
-            // 단 이동 전에 로그인 성공했다고 기억해야 된다.(localStorage에)
-            // localStorage.setItem("m_idx",m_idx);
-            // localStorage.setItem("name",m_name);
-            // App.js 에서 isLoggedIn를 변경하지 위해 
-            // main으로 갈때 값을 기억시켜야 한다.
-            
-            // setIsLoggedIn(true);
-
+            localStorage.setItem("accessToken", JSON.stringify({ accessToken }));
             zu_login();
             navigate('/');
-
         } catch (error) {
             console.log(error);
             alert("로그인 실패");
         }
     }
-
     
-    const heandleSocialLogin = (provider) => {
-        window.location.href = `http://43.203.39.193:8080/oauth2/authorization/${provider}`;
-    }
+    const handleSocialLogin = (provider) => {
+    // const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://43.203.39.193:8080";
+    const backendUrl = "http://43.203.39.193:8080";
+    window.location.href = `${backendUrl}/oauth2/authorization/${provider}`;
+  };
+
     return(
         <div className="login-wrapper">
             <h2>로그인</h2>
@@ -65,8 +52,8 @@ export default function Login(){
             />
          
             <button onClick={handleLogin} disabled={!m_id || !m_pw}>로그인</button>
-            <button onClick={()=> heandleSocialLogin("kakao")}>카카오 로그인</button>
-            <button onClick={()=> heandleSocialLogin("naver")}>네이버 로그인</button>
+            <button onClick={()=> handleSocialLogin("kakao")}>카카오 로그인</button>
+            <button onClick={()=> handleSocialLogin("naver")}>네이버 로그인</button>
         </div>
 
       

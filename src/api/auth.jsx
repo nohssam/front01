@@ -1,7 +1,7 @@
 import {api} from "./http"
+import useAuthStore from "../store/authStore";  
 
 // 스프링 서버에 보낼 것을 모아 놓은 것
-
 // 1. 로그인
 export const login = (m_id, m_pw) => 
     api.post("/members/login",{m_id, m_pw})
@@ -101,75 +101,63 @@ export const bbsCommDelete = (c_idx) => {
 // - login, register
 // 3. 제외한 나머지는 헤더에 JWT 토큰이 자동으로 추가되게 하자 
 
-// api.interceptors.request.use(
-//     (config) => {
-//         const excludePaths = ["/members/login","/members/register"]; // 제외할 목록
-//         if(! excludePaths.includes(config.url)){
-//             const tokens = localStorage.getItem("tokens");
-//             if(tokens){
-//                 const parsed = JSON.parse(tokens); // 객체로 파싱
-//                 if(parsed.accessToken){
-//                     config.headers.Authorization = `Bearer ${parsed.accessToken}` // 문자열로 출력됨
-//                 }
-//             }
-//         }
-//         return config;
-//     },
-//     (error) =>{
-//         return Promise.reject(error);
-//     }
-// );
-
+// 요청 인터셉터 (AccessToken 자동 추가)
 api.interceptors.request.use(
   (config) => {
-    const excludePaths = ["/members/login", "/members/register"];
-    const excludeMatch = excludePaths.some((path) => config.url.includes(path));
+    const excludePaths = ["/members/login", "/members/register","/members/refresh", "/members/logout"];
+    const isExcluded = excludePaths.some((path) => config.url.includes(path));
 
-    if (!excludeMatch) {
-      const tokens = localStorage.getItem("tokens");
+    if (!isExcluded) {
+      const tokens = localStorage.getItem("accessToken");
       if (tokens) {
-        const parsed = JSON.parse(tokens);
-        if (parsed.accessToken) {
-          config.headers.Authorization = `Bearer ${parsed.accessToken}`;
+        const { accessToken } = JSON.parse(tokens);
+        if (accessToken) {
+          config.headers.Authorization = `Bearer ${accessToken}`;
         }
       }
     }
+
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 
-
+//  응답 인터셉터 (AccessToken 자동 재발급 + 재시도)
 api.interceptors.response.use(
-    // 정상적인 응답은 통과
-    res => res ,
-    async (error) =>{
-        const {config, response} = error ;
-        // 401 에러 => accessToken 만료되면
-        if(response?.status === 401 && !config._retry){
-            config._retry = true; // 한번만 재 시도하도록 설정
-            try {
-                const tokens = JSON.parse(localStorage.getItem("tokens"));
-                const result = await api.post("/members/refresh",{
-                    refreshToken : tokens.refreshToken
-                });
-                const {accessToken, refreshToken} = result.data.data;
-                localStorage.setItem("tokens", JSON.stringify({accessToken, refreshToken}));
+  (res) => res,
+  async (error) => {
+    const { config, response } = error;
 
-                config.headers.Authorization = `Bearer ${accessToken}`;
-                return api(config);
-            } catch (e) {
-                // refreshToken이 만료된 경우 처리
-                // console.error("Refresh token expired or invalid", error);
-                // console.log(error);
-                
-                localStorage.clear();
-                window.location.href = "/login";
-        }
-    } 
-    return Promise.reject(error);
+    // /refresh, /logout 응답은 재시도 제외 (무한 루프 방지)
+    const excludeResponsePaths = ["/members/refresh", "/members/logout"];
+    const isExcluded = excludeResponsePaths.some((path) => config.url.includes(path));
+    if (isExcluded) {
+      return Promise.reject(error);
     }
+
+    // AccessToken 만료 → 자동 Refresh 시도
+    if (response?.status === 401 && !config._retry) {
+      config._retry = true;
+      try {
+        const res = await api.post("/members/refresh");
+        const { data } = res.data;
+        if (!data || !data.accessToken) {
+          throw new Error("AccessToken 재발급 실패");
+        }
+        const { accessToken } = data;
+        localStorage.setItem("accessToken", JSON.stringify({ accessToken }));
+        useAuthStore.getState().zu_login();
+        config.headers.Authorization = `Bearer ${accessToken}`;
+        return api(config);  // 재요청
+      } catch (e) {
+        console.error("자동 리프레시 실패", e);
+        localStorage.clear();
+        useAuthStore.getState().zu_logout();
+        window.location.href = "/login";
+      }
+    }
+
+    return Promise.reject(error);
+  }
 );
