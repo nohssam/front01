@@ -8,23 +8,25 @@ export default function RequireAuth({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const tokens = localStorage.getItem("tokens");
+    const tokens = localStorage.getItem("accessToken");
 
     if (tokens) {
-      useAuthStore.getState().zu_login(); // 상태 복원
+      useAuthStore.getState().zu_login(); // 상태 복구
     }
 
-    // 상태 복원 후 최소 지연을 주고 로딩 해제
-    setTimeout(() => {
-      setLoading(false);
-    }, 100);
+    setLoading(false); // 바로 해제
   }, []);
+
+  useEffect(() => {
+    if (!loading && !zu_isLoggedIn) {
+      navigate("/login");
+    }
+  }, [loading, zu_isLoggedIn, navigate]);
 
   if (loading) return <div>인증 확인 중...</div>;
 
   if (!zu_isLoggedIn) {
-    navigate("/login");
-    return null;
+    return null; // 이미 navigate로 이동 중
   }
 
   return children;

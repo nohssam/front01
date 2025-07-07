@@ -9,7 +9,7 @@ import ProductDetail from './pages/ProductDetail';
 import MyPage from './pages/MyPage';
 import { AuthProvider } from './context/AuthContext';
 import useAuthStore from './store/authStore';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 // import GuestBook from './pages/GuestBook';
 import GuestBook from './pages/GuestBook';
@@ -22,16 +22,36 @@ import BbsWrite from './pages/BbsWrite';
 import BbsUpdate from './pages/BbsUpdate';
 import OAuth2RedirectHandler from './components/OAuth2RedirectHandler';
 import RequireAuth from './components/RequireAuth';
+import { api } from './api/http';
 
 function App() {
+  const [loading, setLoading] = useState(true);
 
-  useEffect(()=>{
-    const tokens = localStorage.getItem("tokens");
-    if(tokens){
-        useAuthStore.getState().zu_login();
+ useEffect(() => {
+    const tokens = localStorage.getItem("accessToken");
+    if (tokens) {
+      useAuthStore.getState().zu_login();
+      setLoading(false);
+    } else {
+      api.get("/members/refresh")
+        .then((res) => {
+          const { accessToken } = res.data.data;
+          localStorage.setItem("accessToken", JSON.stringify({ accessToken }));
+          useAuthStore.getState().zu_login();
+        })
+        .catch(() => {
+          localStorage.clear();
+          useAuthStore.getState().zu_logout();
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
-  },[]);
+  }, []);
 
+  if (loading) {
+    return <div>로그인 상태 확인 중입니다...</div>;  // 무조건 넣어야 함
+  }
   return (
         <AuthProvider>
       <div className='app-container'>

@@ -18,7 +18,7 @@ export default function BbsUpdate() {
 
     const handleFileDown = () => {
         if (!detail.gb_f_name) return;
-        const fileUrl = `http://localhost:8080/api/bbs/fileDownload?f_name=${detail.f_name}`;
+        const fileUrl = `http://43.203.39.193:8080/api/bbs/fileDownload?f_name=${detail.f_name}`;
         window.location.href = fileUrl;
     };
 
