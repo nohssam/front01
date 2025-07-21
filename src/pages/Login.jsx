@@ -32,8 +32,8 @@ export default function Login(){
     }
     
     const handleSocialLogin = (provider) => {
-    // const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://43.203.39.193:8080";
-    const backendUrl = "http://43.203.39.193:8080";
+    // const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
+    const backendUrl = "http://localhost:8080";
     window.location.href = `${backendUrl}/oauth2/authorization/${provider}`;
   };
 
