@@ -101,7 +101,8 @@ export default function BbsDetail() {
                   disabled={!detail.f_name}
                   onClick={() => {
                     const encodedName = encodeURIComponent(detail.f_name);
-                    const url = `http://localhost:8080/api/bbs/fileDownload?f_name=${encodedName}`;
+                    //const url = `http://localhost:8080/api/bbs/fileDownload?f_name=${encodedName}`;
+                    const url = `https://nohssam.store:8080/api/bbs/fileDownload?f_name=${encodedName}`;
                     window.open(url, "_blank"); // 새 창으로 다운로드
                   }}
                 >
