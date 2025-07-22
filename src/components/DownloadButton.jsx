@@ -14,7 +14,15 @@ export default function DownloadButton({ gb_f_name, gb_old_f_name }) {
                    console.log(result)
                 // 직접 열기 : window.location.href = result.data;
                 // 새로운 탭에 열기
-                 window.open(result.data, "_blank");  
+                // window.open(result.data, "_blank");  
+
+                // 다운로드 직접 처리
+                const link = document.createElement("a");
+                link.href = result.data; // presigned URL
+                link.download = gb_old_f_name || gb_f_name; // 사용자가 올린 원래 이름으로 다운로드
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
             } else {
                 alert("다운로드 링크 생성 실패: " + result.message);
             }
