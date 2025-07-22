@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { guestBookDelete, guestBookDetail, myPage } from "../api/auth";
 import "../styles/guestbook.css";
+import DownloadButton from "../components/DownloadButton";
 
 // 날짜 포맷 함수
 const formatDateTime = (datetimeStr) => {
@@ -43,6 +44,10 @@ export default function GuestBookDetail() {
     const [modal, setModal] = useState(false);
     const [userEmail, setUserEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [thumbnailUrl, setThumbnailUrl] = useState(""); // presigned URL 저장용
+    const isImageFile = (filename) => {
+        return /\.(jpg|jpeg|png|gif|bmp|webp)$/i.test(filename);
+    };
 
     const handleSbCheck = async () => {
         if (!password) {
@@ -64,13 +69,6 @@ export default function GuestBookDetail() {
         }
     };
 
-    const handleFileDown = () => {
-        if (!detail.gb_f_name) return;
-        const fileUrl = `http://localhost:8080/api/guestbook/fileDownload?gb_f_name=${detail.gb_f_name}`;
-        // const fileUrl = `https://nohssam.store:8080/api/guestbook/fileDownload?gb_f_name=${detail.gb_f_name}`;
-        window.location.href = fileUrl;
-    };
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -85,7 +83,24 @@ export default function GuestBookDetail() {
                 );
 
                 if (detailRes.data.success) {
-                    setDetail(detailRes.data.data);
+                    const data = detailRes.data.data;
+                    setDetail(data);
+
+                     // 콘솔로 확인: 이 값이 presigned URL이면 안 됩니다
+                    console.log(" gb_f_name (S3 Key):", data.gb_f_name);
+                    
+                    //  썸네일 presigned URL 요청
+                   if (data.gb_f_name && isImageFile(data.gb_f_name)) {
+                     
+                        const res = await fetch(
+                            `http://nohssam.store:8080/api/guestbook/image?fileName=${encodeURIComponent(data.gb_f_name)}`
+                        );
+                        const result = await res.json();
+                        if (result.success) {
+                            setThumbnailUrl(result.data);
+                        }
+                    }
+                    
                 } else {
                     setError(true);
                 }
@@ -126,15 +141,29 @@ export default function GuestBookDetail() {
                         </tr>
                         <tr>
                             <th className="detail-th">첨부파일</th>
-                            <td className="detail-td">
+                             <td className="detail-td">
                                 {detail.gb_f_name ? (
-                                    <button
-                                        type="button"
-                                        className="file-down"
-                                        onClick={handleFileDown}
-                                    >
-                                        {detail.gb_old_f_name}
-                                    </button>
+                                    <div>
+                                        <DownloadButton
+                                            gb_f_name={detail.gb_f_name}
+                                            gb_old_f_name={detail.gb_old_f_name}
+                                        />
+                                        {isImageFile(detail.gb_f_name) && thumbnailUrl && (
+                                            <div className="thumbnail-box">
+                                                <img
+                                                    src={thumbnailUrl} //  presigned URL로 변경
+                                                    alt="썸네일"
+                                                    className="thumbnail-image"
+                                                    style={{
+                                                        maxWidth: "100px",
+                                                        marginTop: "10px",
+                                                        border: "1px solid #ccc",
+                                                        borderRadius: "4px"
+                                                    }}
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
                                 ) : (
                                     <span style={{ color: "#888" }}>첨부파일 없음</span>
                                 )}

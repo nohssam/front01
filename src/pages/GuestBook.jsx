@@ -9,7 +9,7 @@ export default function Guestbook() {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    // // ✅ 로그인 안 되어 있으면 로그인 페이지로 이동
+    // 로그인 안 되어 있으면 로그인 페이지로 이동
     // useEffect(() => {
     //     const token = localStorage.getItem("accessToken");
     //     if (!token) {
@@ -34,7 +34,7 @@ export default function Guestbook() {
         guestbooklist();
     }, []);
 
-    // ✅ 날짜 포맷
+    //  날짜 포맷
     const formatDateTime = (isoString) => {
         if (!isoString) return '';
         const date = isoString.substring(0, 10).replace(/-/g, '.');
@@ -42,12 +42,12 @@ export default function Guestbook() {
         return `${date} ${time}`;
     };
 
-    // ✅ 글쓰기 페이지 이동
+    //  글쓰기 페이지 이동
     const handleInsert = () => {
         navigate("/guestbookInsert");
     };
 
-    // ✅ 로딩 및 에러 처리
+    //  로딩 및 에러 처리
     if (loading) return <div className="center-text">로딩중...</div>;
     if (error) return <div className="center-text">에러 발생: {error}</div>;
 

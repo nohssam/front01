@@ -28,14 +28,14 @@ export default function Header(){
                 alert("로그아웃 실패: " + (res.data.message || "알 수 없는 이유"));
             }
             } catch (error) {
-            console.error("로그아웃 에러", error);
-            alert("로그아웃 중 오류가 발생했습니다.");
+                console.error("로그아웃 에러", error);
+                alert("로그아웃 중 오류가 발생했습니다.");
             } finally {
-            // ✅ 로그아웃 시 상태 초기화 (불필요한 snsProvider는 제거 가능)
-            localStorage.removeItem("accessToken");
-            // localStorage.removeItem("snsProvider");  // SNS 로그인 시 꼭 필요하면 주석 풀어도 됨
-            zu_logout();
-            navigate("/login");
+                //  로그아웃 시 상태 초기화 (불필요한 snsProvider는 제거 가능)
+                localStorage.removeItem("accessToken");
+                // localStorage.removeItem("snsProvider");  // SNS 로그인 시 꼭 필요하면 주석 풀어도 됨
+                zu_logout();
+                navigate("/login");
             }
         };
   

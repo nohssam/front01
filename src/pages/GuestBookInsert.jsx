@@ -10,7 +10,7 @@ export default function GuestbookInsert() {
     const handleFileChange = (e) => {
         setForm((prev) => ({
             ...prev,
-            file: e.target.files[0] // ✅ 파일 객체를 저장
+            file: e.target.files[0] //  파일 객체를 저장
         }));
     };
     const handleChange = (e) => {
@@ -24,7 +24,7 @@ export default function GuestbookInsert() {
                 const formdata = new FormData();
                 formdata.append("gb_subject", form.gb_subject);
                 formdata.append("gb_content", form.gb_content);
-               formdata.append("gb_file", form.file); 
+                formdata.append("gb_file", form.file); 
                 formdata.append("gb_pw", form.gb_pw);
                 const res = await guestBookInsert(formdata);
                 alert("등록 완료");
@@ -38,34 +38,34 @@ export default function GuestbookInsert() {
     };
     return (
         <div className="insert-wrapper">
-    <table className="insert-table">
-        <tbody>
-            <tr>
-                <th>Subject</th>
-                <td><input className="detail-input" name="gb_subject" type="text" value={form.gb_subject} onChange={handleChange} /></td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>
-                    <textarea className="detail-input" name="gb_content" rows="10" onChange={handleChange} value={form.gb_content} />
-                </td>
-            </tr>
-            <tr>
-                <th>Writing PW</th>
-                <td><input className="detail-input" name="gb_pw" type="password" value={form.gb_pw} onChange={handleChange} /></td>
-            </tr>
-            <tr>
-                <th>Attachment</th>
-                <td><input className="detail-input" type="file" name="file" onChange={handleFileChange} /></td>
-            </tr>
-            <tr>
-                <td colSpan="2" className="button-row">
-                    <button type="button" onClick={() => handleEdit(1)}>등록</button>
-                    <button type="button" onClick={() => handleEdit(2)}>취소</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+            <table className="insert-table">
+                <tbody>
+                    <tr>
+                        <th>Subject</th>
+                        <td><input className="detail-input" name="gb_subject" type="text" value={form.gb_subject} onChange={handleChange} /></td>
+                    </tr>
+                    <tr>
+                        <th>Content</th>
+                        <td>
+                            <textarea className="detail-input" name="gb_content" rows="10" onChange={handleChange} value={form.gb_content} />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Writing PW</th>
+                        <td><input className="detail-input" name="gb_pw" type="password" value={form.gb_pw} onChange={handleChange} /></td>
+                    </tr>
+                    <tr>
+                        <th>Attachment</th>
+                        <td><input className="detail-input" type="file" name="file" onChange={handleFileChange} /></td>
+                    </tr>
+                    <tr>
+                        <td colSpan="2" className="button-row">
+                            <button type="button" onClick={() => handleEdit(1)}>등록</button>
+                            <button type="button" onClick={() => handleEdit(2)}>취소</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     );
 }
