@@ -1,7 +1,7 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 COPY package*.json ./
-# COPY .env .              
+COPY .env .              
 RUN npm install
 COPY . .
 RUN chmod +x node_modules/.bin/react-scripts

@@ -46,8 +46,3 @@ jobs:
                     docker stop react-app2 || true
                     docker rm react-app2 || true
                     docker run -d -p 80:80 --name react-app2 ${{secrets.DOCKER_USERNAME}}/react-app2:${{github.sha}}
-
-
-
-
-        
