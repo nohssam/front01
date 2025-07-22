@@ -16,8 +16,8 @@ export default function GuestBookUpdate() {
 
     const handleFileDown = () => {
         if (!detail.gb_f_name) return;
-        // const fileUrl = `http://localhost:8080/api/guestbook/fileDownload?gb_f_name=${detail.gb_f_name}`;
-        const fileUrl = `https://nohssam.store:8080/api/guestbook/fileDownload?gb_f_name=${detail.gb_f_name}`;
+        const fileUrl = `http://localhost:8080/api/guestbook/fileDownload?gb_f_name=${detail.gb_f_name}`;
+        //const fileUrl = `https://nohssam.store:8080/api/guestbook/fileDownload?gb_f_name=${detail.gb_f_name}`;
         window.location.href = fileUrl;
     };
 

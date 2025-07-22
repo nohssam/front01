@@ -33,8 +33,8 @@ export default function Login(){
     
     const handleSocialLogin = (provider) => {
     // const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
-    //const backendUrl = "http://localhost:8080";
-    const backendUrl = "http://nohssam.store:8080";
+    const backendUrl = "http://localhost:8080";
+    // const backendUrl = "http://nohssam.store:8080";
     window.location.href = `${backendUrl}/oauth2/authorization/${provider}`;
   };
 
