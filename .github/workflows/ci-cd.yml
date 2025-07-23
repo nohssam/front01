@@ -23,7 +23,7 @@ jobs:
               # 3. .env 파일 생성 (API 주소 포함)
             - name: Create .env file
               run: |
-                echo "REACT_APP_API_BASE_URL=https://nohssam.store:8080/api" >> .env
+                echo "REACT_APP_API_BASE_URL=http://nohssam.store:8080/api" >> .env
                 echo "REACT_APP_MAKEUP_API_BASE_URL=https://makeup-api.herokuapp.com/api" >> .env
 
             - name: DockerHub Login
@@ -40,47 +40,47 @@ jobs:
                 docker build -t $IMAGE_NAME:$TAG .
                 docker push $IMAGE_NAME:$TAG
             
-            # - name: Deploy to AWS EC2
-            #     #  EC2 서버에 SSH로접속   
-            #   uses: appleboy/ssh-action@v0.1.8
-            #   with: 
-            #     host: ${{secrets.AWS_EC2_HOST}}
-            #     username: ${{secrets.AWS_EC2_USER}}
-            #     key: ${{secrets.AWS_EC2_KEY}}
-            #     script: |
-            #         docker pull ${{secrets.DOCKER_USERNAME}}/react-app2:${{github.sha}}
-            #         docker stop react-app2 || true
-            #         docker rm react-app2 || true
-            #         docker run -d -p 80:80 --name react-app2 ${{secrets.DOCKER_USERNAME}}/react-app2:${{github.sha}}
-
             - name: Deploy to AWS EC2
+                #  EC2 서버에 SSH로접속   
               uses: appleboy/ssh-action@v0.1.8
               with: 
                 host: ${{secrets.AWS_EC2_HOST}}
                 username: ${{secrets.AWS_EC2_USER}}
                 key: ${{secrets.AWS_EC2_KEY}}
                 script: |
-                  # 네트워크 없으면 생성
-                  docker network create app-net || true
+                    docker pull ${{secrets.DOCKER_USERNAME}}/react-app2:${{github.sha}}
+                    docker stop react-app2 || true
+                    docker rm react-app2 || true
+                    docker run -d -p 80:80 --name react-app2 ${{secrets.DOCKER_USERNAME}}/react-app2:${{github.sha}}
 
-                  # spring-app2 실행 (이미 올라가 있다면 건너뜀 또는 최신화 가능)
-                  docker stop spring-app2 || true
-                  docker rm spring-app2 || true
-                  docker run -d \
-                    --name spring-app2 \
-                    --network app-net \
-                    -p 8080:8080 \
-                    nohssam/spring-app2  # ← 이미지 이름 실제 값으로 교체
+            # - name: Deploy to AWS EC2
+            #   uses: appleboy/ssh-action@v0.1.8
+            #   with: 
+            #     host: ${{secrets.AWS_EC2_HOST}}
+            #     username: ${{secrets.AWS_EC2_USER}}
+            #     key: ${{secrets.AWS_EC2_KEY}}
+            #     script: |
+            #       # 네트워크 없으면 생성
+            #       docker network create app-net || true
 
-                  # react-app2 최신 이미지 pull
-                  docker pull ${{secrets.DOCKER_USERNAME}}/react-app2:${{github.sha}}
+            #       # spring-app2 실행 (이미 올라가 있다면 건너뜀 또는 최신화 가능)
+            #       docker stop spring-app2 || true
+            #       docker rm spring-app2 || true
+            #       docker run -d \
+            #         --name spring-app2 \
+            #         --network app-net \
+            #         -p 8080:8080 \
+            #         nohssam/spring-app2  # ← 이미지 이름 실제 값으로 교체
 
-                  # react-app2 재시작
-                  docker stop react-app2 || true
-                  docker rm react-app2 || true
-                  docker run -d \
-                    --name react-app2 \
-                    --network app-net \
-                    -p 80:80 \
-                    ${{secrets.DOCKER_USERNAME}}/react-app2:${{github.sha}}
+            #       # react-app2 최신 이미지 pull
+            #       docker pull ${{secrets.DOCKER_USERNAME}}/react-app2:${{github.sha}}
+
+            #       # react-app2 재시작
+            #       docker stop react-app2 || true
+            #       docker rm react-app2 || true
+            #       docker run -d \
+            #         --name react-app2 \
+            #         --network app-net \
+            #         -p 80:80 \
+            #         ${{secrets.DOCKER_USERNAME}}/react-app2:${{github.sha}}
 
