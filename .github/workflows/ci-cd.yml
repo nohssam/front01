@@ -23,7 +23,7 @@ jobs:
               # 3. .env 파일 생성 (API 주소 포함)
             - name: Create .env file
               run: |
-                echo "REACT_APP_API_BASE_URL=http://nohssam.store:8080/api" >> .env
+                echo "REACT_APP_API_BASE_URL=https://nohssam.store:8080/api" >> .env
                 echo "REACT_APP_MAKEUP_API_BASE_URL=https://makeup-api.herokuapp.com/api" >> .env
 
             - name: DockerHub Login
